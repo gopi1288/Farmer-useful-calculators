@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Login Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input,button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="container" style="background-image:url('PADDY.jpg');">
+  <h2>Register and Login</h2>
+  <form id="registerForm">
+    Username: <input type="text" id="regUsername" required><br>
+    Password: <input type="password" id="regPassword" required><br>
+    <button type="submit">Register</button>
+  </form>
+
+  <form id="loginForm">
+    Username: <input type="text" id="loginUsername" required><br>
+    Password: <input type="password" id="loginPassword" required><br>
+    <button type="submit">Login</button>
+  </form>
+
+  <p id="message"></p>
+  </div>
+
+  <script>
+    let registeredUser = {};
+
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("regUsername").value;
+      const password = document.getElementById("regPassword").value;
+
+      registeredUser = { username, password };
+      document.getElementById("message").textContent = "Registration successful!";
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("loginUsername").value;
+      const password = document.getElementById("loginPassword").value;
+
+      if (username === registeredUser.username && password === registeredUser.password) {
+        document.getElementById("message").textContent = "Login successful!";
+        window.location.href = 'main.html'; 
+		
+      } else {
+        document.getElementById("message").textContent = "Invalid credentials.";
+      }
+    });
+  </script>
+</body>
+</html>

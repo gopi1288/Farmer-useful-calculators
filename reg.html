@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+	<style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2,p {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input,button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="container" style="background-image:url('PADDY.jpg');">
+    <h2>Registration Page</h2>
+    <form  onsubmit="loginUser(); return false;">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <input type="submit" value="Register">
+    </form>
+
+    <p>Already have an account? <a href="loginpage.html">Login here</a></p>
+</div>
+	
+<script>
+function loginUser() {
+  const user = document.getElementById('username').value;
+  alert("Registration is sucessful by " + user);
+  window.location.href = 'loginpage.html'; // redirect after login
+}
+</script>
+</body>
+</html>

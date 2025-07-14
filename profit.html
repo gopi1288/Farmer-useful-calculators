@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crop Yield Profit/Loss Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+    #result {
+      font-weight: bold;
+      margin-top: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" style="background-image:url('PADDY.jpg');">
+  <h2>Crop Yield Profit/Loss Calculator</h2>
+
+  <label for="area">Area (in acres):</label>
+  <input type="number" id="area" placeholder="e.g. 10" required>
+
+  <label for="crop">Crop Type:</label>
+  <select id="crop">
+    <option value="wheat">Wheat</option>
+    <option value="rice">Rice</option>
+    <option value="corn">Corn</option>
+    <option value="soy">Soybean</option>
+	<option value="cotton">cotton</option>
+	<option value="Sugarcane">Sugarcane</option>
+  </select>
+
+  <label for="yield">Predicted Yield (kg per acre):</label>
+  <input type="number" id="yield" placeholder="e.g. 2500" required>
+
+  <label for="price">Market Price (per kg):</label>
+  <input type="number" id="price" placeholder="e.g. 15" required>
+
+  <label for="cost">Cost of Production (total):</label>
+  <input type="number" id="cost" placeholder="e.g. 20000" required>
+
+  <button onclick="calculateProfit()">Calculate Profit/Loss</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+function calculateProfit() {
+  const area = parseFloat(document.getElementById('area').value);
+  const yieldPerAcre = parseFloat(document.getElementById('yield').value);
+  const price = parseFloat(document.getElementById('price').value);
+  const cost = parseFloat(document.getElementById('cost').value);
+
+  if (isNaN(area) || isNaN(yieldPerAcre) || isNaN(price) || isNaN(cost)) {
+    document.getElementById('result').innerText = 'Please fill all fields correctly.';
+    return;
+  }
+
+  const totalYield = area * yieldPerAcre;
+  const revenue = totalYield * price;
+  const profit = revenue - cost;
+
+  const resultText = profit >= 0
+    ? `✅ Profit: ₹${profit.toFixed(2)}`
+    : `❌ Loss: ₹${Math.abs(profit).toFixed(2)}`;
+
+  document.getElementById('result').innerText = resultText;
+}
+</script>
+
+</body>
+</html>

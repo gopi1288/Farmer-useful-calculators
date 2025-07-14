@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crop Recommendation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" style="background-image:url('PADDY.jpg');">
+    <h2>🌱 Crop Recommendation</h2>
+    <label for="soil">Soil Type:</label>
+    <select id="soil">
+	    <option value="select">select</option>
+        <option value="Loamy">Loamy</option>
+        <option value="Clay">Clay</option>
+        <option value="Sandy">Sandy</option>
+    </select>
+
+    <label for="temperature">Temperature (°C):</label>
+    <input type="number" id="temperature" required>
+
+    <label for="rainfall">Rainfall (mm):</label>
+    <input type="number" id="rainfall" required>
+
+    <label for="ph">Soil pH:</label>
+    <input type="number" step="0.1" id="ph" required>
+
+    <button onclick="showRecommendation()">Get Recommendation</button>
+
+    <div class="result" id="resultBox"></div>
+</div>
+
+<script>
+function recommendCrops(soil, temperature, rainfall, ph) {
+    let crops = [];
+
+    if (soil === "Loamy") {
+        if (temperature >= 20 && temperature <= 35 &&
+            rainfall >= 100 && rainfall <= 200 &&
+            ph >= 6 && ph <= 7.5) {
+            crops = ["Rice", "Sugarcane", "Maize","cotton"];
+        } else {
+            crops = ["Wheat", "Barley"];
+        }
+    } else if (soil === "Clay") {
+        if (temperature >= 15 && temperature <= 30 &&
+            rainfall >= 80 && rainfall <= 150 &&
+            ph >= 5.5 && ph <= 7) {
+            crops = ["Paddy", "Cotton","maize"];
+        } else {
+            crops = ["Chickpea", "Mustard"];
+        }
+    } else if (soil === "Sandy") {
+        if (temperature >= 25 && temperature <= 40 &&
+            rainfall >= 50 && rainfall <= 100 &&
+            ph >= 6 && ph <= 8) {
+            crops = ["Millets", "Groundnut"];
+        } else {
+            crops = ["Sunflower", "Castor"];
+        }
+    } else {
+        crops = ["No suggestion - unknown soil type"];
+    }
+
+    return crops;
+}
+
+function showRecommendation() {
+    const soil = document.getElementById("soil").value;
+    const temperature = parseFloat(document.getElementById("temperature").value);
+    const rainfall = parseFloat(document.getElementById("rainfall").value);
+    const ph = parseFloat(document.getElementById("ph").value);
+    const resultBox = document.getElementById("resultBox");
+
+    if (isNaN(temperature) || isNaN(rainfall) || isNaN(ph)) {
+        alert("❌ Please enter valid numbers.");
+        return;
+    }
+
+    const crops = recommendCrops(soil, temperature, rainfall, ph);
+    resultBox.innerHTML = `<strong>Recommended Crops:</strong><br>${crops.join("<br>")}`;
+    resultBox.style.display = "block";
+}
+</script>
+
+</body>
+</html>

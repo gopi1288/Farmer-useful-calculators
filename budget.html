@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crop Budget Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f8f2;
+      padding: 20px;
+    }
+
+    .calculator {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2e7d32;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #388e3c;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e8f5e9;
+      border-left: 5px solid #4caf50;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+
+    .loss {
+      border-left-color: #c62828;
+      color: #c62828;
+      background: #fdecea;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator" style="background-image:url('PADDY.jpg');">>
+  <h2>🌾 Crop Budget Calculator</h2>
+
+  <label for="area">Land Area (acres):</label>
+  <input type="number" id="area" placeholder="e.g., 5">
+
+  <label for="yield">Expected Yield (kg per acre):</label>
+  <input type="number" id="yield" placeholder="e.g., 2000">
+
+  <label for="price">Selling Price (per kg):</label>
+  <input type="number" id="price" placeholder="e.g., 15">
+
+  <label for="seedCost">Total Seed Cost:</label>
+  <input type="number" id="seedCost" placeholder="e.g., 2000">
+
+  <label for="fertilizerCost">Total Fertilizer Cost:</label>
+  <input type="number" id="fertilizerCost" placeholder="e.g., 3000">
+
+  <label for="laborCost">Total Labor Cost:</label>
+  <input type="number" id="laborCost" placeholder="e.g., 4000">
+
+  <label for="otherCost">Other Costs:</label>
+  <input type="number" id="otherCost" placeholder="e.g., 1000">
+
+  <button onclick="calculateBudget()">Calculate Budget</button>
+
+  <div id="result" class="result" style="display: none;"></div>
+</div>
+
+<script>
+  function calculateBudget() {
+    const area = parseFloat(document.getElementById('area').value);
+    const yieldPerAcre = parseFloat(document.getElementById('yield').value);
+    const pricePerKg = parseFloat(document.getElementById('price').value);
+    const seedCost = parseFloat(document.getElementById('seedCost').value);
+    const fertilizerCost = parseFloat(document.getElementById('fertilizerCost').value);
+    const laborCost = parseFloat(document.getElementById('laborCost').value);
+    const otherCost = parseFloat(document.getElementById('otherCost').value);
+
+    if ([area, yieldPerAcre, pricePerKg, seedCost, fertilizerCost, laborCost, otherCost].some(isNaN)) {
+      alert("Please fill in all fields with valid numbers.");
+      return;
+    }
+
+    const totalYield = area * yieldPerAcre;
+    const revenue = totalYield * pricePerKg;
+    const totalCost = seedCost + fertilizerCost + laborCost + otherCost;
+    const netProfit = revenue - totalCost;
+
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = "block";
+
+    if (netProfit >= 0) {
+      resultDiv.className = "result";
+      resultDiv.innerHTML = `
+        🌟 <strong>Profit:</strong> ₹${netProfit.toFixed(2)}<br>
+        💰 Total Revenue: ₹${revenue.toFixed(2)}<br>
+        💸 Total Cost: ₹${totalCost.toFixed(2)}
+      `;
+    } else {
+      resultDiv.className = "result loss";
+      resultDiv.innerHTML = `
+        ⚠️ <strong>Loss:</strong> ₹${Math.abs(netProfit).toFixed(2)}<br>
+        💰 Total Revenue: ₹${revenue.toFixed(2)}<br>
+        💸 Total Cost: ₹${totalCost.toFixed(2)}
+      `;
+    }
+  }
+</script>
+
+</body>
+</html>
